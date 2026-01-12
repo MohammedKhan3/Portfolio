@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fawzaan Khan | Web Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Bebas+Neue&family=Oswald:wght@400;600&family=Creepster&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #E62429;
+            --primary-blue: #2B75BB;
+            --dark-bg: #0A0E27;
+            --comic-yellow: #FFD700;
+            --web-white: #F0F0F0;
+        }
+
+        body {
+            font-family: 'Oswald', sans-serif;
+            background: var(--dark-bg);
+            color: var(--web-white);
+            overflow-x: hidden;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="%23E62429" opacity="0.6"/><circle cx="12" cy="12" r="3" fill="%23fff"/></svg>'), auto;
+        }
+
+        /* Animated Comic Halftone Background */
+        .halftone-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle, transparent 20%, var(--dark-bg) 20%, var(--dark-bg) 80%, transparent 80%, transparent),
+                radial-gradient(circle, transparent 20%, var(--dark-bg) 20%, var(--dark-bg) 80%, transparent 80%, transparent) 25px 25px,
+                linear-gradient(rgba(230, 36, 41, 0.03) 2px, transparent 2px) 0 -1px,
+                linear-gradient(90deg, rgba(43, 117, 187, 0.03) 2px, transparent 2px) -1px 0;
+            background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
+            z-index: -1;
+            animation: halftoneMove 20s linear infinite;
+        }
+
+        @keyframes halftoneMove {
+            0% { background-position: 0 0, 25px 25px, 0 -1px, -1px 0; }
+            100% { background-position: 50px 50px, 75px 75px, 50px 49px, 49px 50px; }
+        }
+
+        /* Web Strands */
+        .web-strand {
+            position: fixed;
+            width: 2px;
+            background: linear-gradient(180deg, transparent, rgba(240, 240, 240, 0.4), transparent);
+            transform-origin: top;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .web-strand-1 { top: 0; left: 15%; height: 60%; animation: webSwing 4s ease-in-out infinite; }
+        .web-strand-2 { top: 0; left: 45%; height: 75%; animation: webSwing 5s ease-in-out infinite 0.5s; }
+        .web-strand-3 { top: 0; left: 75%; height: 55%; animation: webSwing 4.5s ease-in-out infinite 1s; }
+        .web-strand-4 { top: 0; right: 20%; height: 80%; animation: webSwing 5.5s ease-in-out infinite 1.5s; }
+
+        @keyframes webSwing {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 1200px;
+        }
+
+        .hero-title {
+            font-family: 'Bangers', cursive;
+            font-size: clamp(4rem, 12vw, 10rem);
+            color: var(--primary-red);
+            text-shadow: 
+                4px 4px 0 var(--primary-blue),
+                8px 8px 0 rgba(0, 0, 0, 0.3),
+                3px 3px 20px rgba(230, 36, 41, 0.5);
+            letter-spacing: 0.05em;
+            transform: rotate(-2deg);
+            animation: heroAppear 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            line-height: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes heroAppear {
+            0% { transform: rotate(-2deg) scale(0) translateY(-100px); opacity: 0; }
+            60% { transform: rotate(-2deg) scale(1.1) translateY(0); }
+            100% { transform: rotate(-2deg) scale(1) translateY(0); opacity: 1; }
+        }
+
+        .hero-subtitle {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            color: var(--comic-yellow);
+            text-shadow: 2px 2px 0 var(--dark-bg), 2px 2px 10px rgba(255, 215, 0, 0.5);
+            letter-spacing: 0.15em;
+            animation: subtitleSlide 1s ease-out 0.3s backwards;
+        }
+
+        @keyframes subtitleSlide {
+            0% { transform: translateX(-100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        .hero-tagline {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            margin-top: 2rem;
+            color: var(--web-white);
+            font-weight: 400;
+            animation: fadeInUp 1s ease-out 0.6s backwards;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @keyframes fadeInUp {
+            0% { transform: translateY(30px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Comic Speech Bubble */
+        .speech-bubble {
+            position: relative;
+            background: white;
+            color: var(--dark-bg);
+            padding: 1.5rem 2rem;
+            border-radius: 20px;
+            border: 4px solid var(--dark-bg);
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 3rem auto;
+            animation: bubblePop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.9s backwards;
+            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 30px solid white;
+            filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.3));
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -34px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 23px solid transparent;
+            border-right: 23px solid transparent;
+            border-top: 34px solid var(--dark-bg);
+        }
+
+        @keyframes bubblePop {
+            0% { transform: scale(0); opacity: 0; }
+            60% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Contact Info */
+        .contact-info {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+            animation: fadeInUp 1s ease-out 1.2s backwards;
+        }
+
+        .contact-item {
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-blue));
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            transition: 0.5s;
+        }
+
+        .contact-item:hover::before {
+            left: 100%;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px) rotate(-1deg);
+            box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* Section Headers */
+        .section {
+            padding: 5rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-family: 'Bangers', cursive;
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: var(--comic-yellow);
+            text-align: center;
+            margin-bottom: 4rem;
+            text-shadow: 
+                3px 3px 0 var(--primary-red),
+                6px 6px 0 rgba(0, 0, 0, 0.3);
+            position: relative;
+            transform: rotate(-1deg);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 3px solid var(--primary-red);
+            box-shadow: 0 0 30px rgba(230, 36, 41, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-content::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-red), var(--primary-blue), var(--comic-yellow), var(--primary-red));
+            z-index: -1;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            animation: borderGlow 3s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .about-content:hover::before {
+            opacity: 0.5;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(230, 36, 41, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 2px solid var(--primary-red);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 10px 30px rgba(230, 36, 41, 0.3);
+        }
+
+        .skill-category h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            color: var(--comic-yellow);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: var(--primary-blue);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 3px solid var(--primary-blue);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s, box-shadow 0.4s;
+            cursor: pointer;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, rgba(230, 36, 41, 0.2), transparent);
+            transition: top 0.5s;
+        }
+
+        .project-card:hover::before {
+            top: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) rotate(-1deg);
+            box-shadow: 0 15px 40px rgba(43, 117, 187, 0.4);
+            border-color: var(--primary-red);
+        }
+
+        .project-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--comic-yellow);
+            color: var(--dark-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            transform: rotate(5deg);
+            box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .project-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .project-company {
+            color: var(--comic-yellow);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .project-date {
+            color: rgba(240, 240, 240, 0.6);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-description {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: rgba(240, 240, 240, 0.9);
+        }
+
+        .project-description li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .project-description li::before {
+            content: '●';
+            position: absolute;
+            left: 0;
+            color: var(--primary-red);
+            font-size: 1.2rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-tag {
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-blue));
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* Experience Stats */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-blue));
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.3);
+            transform: rotate(-1deg);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .stat-number {
+            font-family: 'Bangers', cursive;
+            font-size: 4rem;
+            color: var(--comic-yellow);
+            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-label {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 0.1em;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            margin-top: 5rem;
+        }
+
+        .footer-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-red);
+            letter-spacing: 0.1em;
+        }
+
+        /* Comic Panel Effect */
+        .comic-panel {
+            position: relative;
+            padding: 3rem;
+            margin: 3rem auto;
+            max-width: 1200px;
+            background: white;
+            color: var(--dark-bg);
+            border: 5px solid var(--dark-bg);
+            box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .comic-panel::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--comic-yellow),
+                var(--comic-yellow) 10px,
+                var(--primary-red) 10px,
+                var(--primary-red) 20px
+            );
+            z-index: -1;
+        }
+
+        /* Origin Story Card */
+        .origin-card {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(230, 36, 41, 0.1), rgba(43, 117, 187, 0.1));
+            padding: 3rem;
+            border-radius: 20px;
+            border: 4px solid var(--primary-red);
+            position: relative;
+            box-shadow: 0 10px 40px rgba(230, 36, 41, 0.3);
+        }
+
+        .origin-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--comic-yellow);
+            color: var(--dark-bg);
+            padding: 0.5rem 2rem;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+            border: 3px solid var(--dark-bg);
+        }
+
+        .origin-school {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            text-align: center;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .origin-location {
+            text-align: center;
+            color: var(--comic-yellow);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .origin-degree {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--web-white);
+        }
+
+        .origin-gpa {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .origin-date {
+            text-align: center;
+            font-style: italic;
+            color: rgba(240, 240, 240, 0.7);
+            margin-bottom: 2rem;
+        }
+
+        .leadership-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid rgba(230, 36, 41, 0.3);
+        }
+
+        .leadership-section h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--comic-yellow);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .leadership-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .leadership-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .leadership-item:hover {
+            transform: translateX(10px);
+            border-color: var(--primary-red);
+        }
+
+        .leadership-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Experience Section */
+        .experience-section {
+            max-width: 1400px;
+            margin: 4rem auto 0;
+            padding: 3rem;
+            background: rgba(230, 36, 41, 0.08);
+            border-radius: 20px;
+            border: 3px solid var(--primary-red);
+        }
+
+        .experience-section h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--comic-yellow);
+            text-align: center;
+            margin-bottom: 3rem;
+            letter-spacing: 0.1em;
+        }
+
+        .experience-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .experience-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid var(--primary-blue);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            position: relative;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 2rem;
+            width: 16px;
+            height: 16px;
+            background: var(--primary-red);
+            border-radius: 50%;
+            border: 3px solid var(--dark-bg);
+            box-shadow: 0 0 0 3px var(--primary-blue);
+        }
+
+        .experience-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(230, 36, 41, 0.3);
+            border-color: var(--primary-red);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .experience-item h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--primary-red);
+            margin-bottom: 0.3rem;
+            letter-spacing: 0.05em;
+        }
+
+        .experience-company {
+            color: var(--comic-yellow);
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .experience-date {
+            color: rgba(240, 240, 240, 0.7);
+            font-weight: 600;
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+
+        .experience-location {
+            color: rgba(240, 240, 240, 0.6);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .experience-description {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: rgba(240, 240, 240, 0.9);
+        }
+
+        .experience-description li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .experience-description li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+        }
+
+        /* Scroll Animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 3rem 1rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .contact-item {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .stat-number {
+                font-size: 3rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .about-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .speech-bubble {
+                padding: 1.2rem 1.5rem;
+                font-size: 1rem;
+            }
+            
+            .origin-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .origin-school {
+                font-size: 2rem;
+            }
+            
+            .experience-section {
+                padding: 2rem 1.5rem;
+            }
+            
+            .experience-item {
+                padding: 1.5rem;
+            }
+            
+            .experience-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .experience-item h4 {
+                font-size: 1.6rem;
+            }
+            
+            .add-project-btn {
+                padding: 1.2rem 2rem;
+                font-size: 1.2rem;
+            }
+            
+            .project-badge {
+                font-size: 0.7rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .web-strand {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .hero-tagline {
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-card {
+                padding: 1.5rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .project-card {
+                padding: 1.5rem;
+            }
+            
+            .project-card h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* POW/BAM Effects */
+        .pow-effect {
+            position: fixed;
+            font-family: 'Bangers', cursive;
+            font-size: 8rem;
+            color: var(--comic-yellow);
+            text-shadow: 
+                4px 4px 0 var(--primary-red),
+                8px 8px 0 var(--dark-bg);
+            pointer-events: none;
+            z-index: 1000;
+            animation: powAnimation 0.8s ease-out forwards;
+        }
+
+        @keyframes powAnimation {
+            0% {
+                transform: scale(0) rotate(-20deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2) rotate(5deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0) rotate(20deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="halftone-bg"></div>
+    <div class="web-strand web-strand-1"></div>
+    <div class="web-strand web-strand-2"></div>
+    <div class="web-strand web-strand-3"></div>
+    <div class="web-strand web-strand-4"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">FAWZAAN KHAN</h1>
+            <div class="hero-subtitle">SOFTWARE ENGINEER</div>
+            <p class="hero-tagline">With great code comes great responsibility. Building scalable web applications and distributed systems.</p>
+            
+            <div class="speech-bubble">
+                "Your friendly neighborhood developer specializing in Spring Boot, React, and cloud-native architectures!"
+            </div>
+
+            <div class="contact-info">
+                <a href="tel:224-386-5434" class="contact-item">📞 224-386-5434</a>
+                <a href="mailto:mohammedkhan2619@gmail.com" class="contact-item">✉️ EMAIL ME</a>
+                <a href="https://linkedin.com/in/fawzaankhan/" target="_blank" class="contact-item">💼 LINKEDIN</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section">
+        <h2 class="section-title scroll-reveal">Performance Highlights</h2>
+        <div class="stats-container scroll-reveal">
+           
+            <div class="stat-card">
+                <div class="stat-number">50K+</div>
+                <div class="stat-label">RECORDS PROCESSED</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">99%</div>
+                <div class="stat-label">SERVICE UPTIME</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3.7</div>
+                <div class="stat-label">GPA</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About/Skills Section -->
+    <section class="section">
+        <h2 class="section-title scroll-reveal">POWER SET</h2>
+        <div class="about-content scroll-reveal">
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>🎯 LANGUAGES</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Bash</span>
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>⚡ FRAMEWORKS</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Spring Boot</span>
+                        <span class="skill-tag">Spring Security</span>
+                        <span class="skill-tag">Hibernate</span>
+                        <span class="skill-tag">React.js</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Flask</span>
+                        <span class="skill-tag">FastAPI</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>🛠️ TOOLS & TECH</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Kafka</span>
+                        <span class="skill-tag">RabbitMQ</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Linux</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>🚀 SPECIALTIES</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Microservices</span>
+                        <span class="skill-tag">REST APIs</span>
+                        <span class="skill-tag">CI/CD</span>
+                        <span class="skill-tag">JWT Auth</span>
+                        <span class="skill-tag">Cloud Deploy</span>
+                        <span class="skill-tag">IoT</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section
+    <section class="section">
+        <h2 class="section-title scroll-reveal">MISSION LOG</h2>
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <!-- <div class="project-card scroll-reveal">
+                <div class="project-badge">CURRENT</div>
+                <h3>Project 1</h3>
+                <div class="project-company">Qualtrics</div>
+                <div class="project-date">Sep 2025 - Dec 2025</div>
+                <ul class="project-description">
+                    <li>Implemented JWT authentication pipeline for 50+ active users</li>
+                    <li>Built AI-powered semantic search with vector embeddings improving retrieval by 70%</li>
+                    <li>Containerized Spring Boot services with Docker for cloud deployment</li>
+                </ul>
+                <div class="project-tech">
+                    <span class="tech-tag">Spring Boot</span>
+                    <span class="tech-tag">JWT</span>
+                    <span class="tech-tag">AI/ML</span>
+                    <span class="tech-tag">Docker</span>
+                    <span class="tech-tag">Vector DB</span>
+                </div>
+            </div> -->
+
+            <!-- Project 2 -->
+            <!-- <div class="project-card scroll-reveal">
+                <div class="project-badge">IoT</div>
+                <h3>Project 2</h3>
+                <div class="project-company">Northeastern Illinois University</div>
+                <div class="project-date">May 2025 - Sep 2025</div>
+                <ul class="project-description">
+                    <li>Built REST APIs supporting 50+ IoT devices with MySQL backend</li>
+                    <li>Designed async ingestion pipeline with Kafka & RabbitMQ</li>
+                    <li>Improved throughput by 30% through query optimization</li>
+                    <li>Implemented RBAC and token auth for distributed services</li>
+                </ul>
+                <div class="project-tech">
+                    <span class="tech-tag">Spring Boot</span>
+                    <span class="tech-tag">Kafka</span>
+                    <span class="tech-tag">RabbitMQ</span>
+                    <span class="tech-tag">MySQL</span>
+                    <span class="tech-tag">IoT</span>
+                </div>
+            </div> -->
+
+            <!-- Project 3 -->
+            <!-- <div class="project-card scroll-reveal">
+                <div class="project-badge">SECURITY</div>
+                <h3>Project 3</h3>
+                <div class="project-company">Northeastern Illinois University</div>
+                <div class="project-date">Dec 2024 - May 2025</div>
+                <ul class="project-description">
+                    <li>Automated security scans for 500+ websites using Python & SSLyze</li>
+                    <li>Analyzed HTTPS policies and encryption configurations</li>
+                    <li>Generated SQL-backed reports reducing vulnerabilities by 80%</li>
+                </ul>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">SSLyze</span>
+                    <span class="tech-tag">SQL</span>
+                    <span class="tech-tag">Security</span>
+                </div>
+            </div> -->
+
+            <!-- Project 4 -->
+            <!-- <div class="project-card scroll-reveal">
+                <div class="project-badge">RESEARCH</div>
+                <h3>Project 4</h3>
+                <div class="project-company">Student Center for Science Engagement</div>
+                <div class="project-date">May 2024 - Aug 2024</div>
+                <ul class="project-description">
+                    <li>Built REST APIs accessing 10,000+ scientific records</li>
+                    <li>Achieved 99% uptime deploying to AWS with Docker</li>
+                    <li>Created Python pipelines for data cleaning & normalization</li>
+                    <li>Scaled horizontally 3× using Hibernate ORM modularization</li>
+                </ul>
+                <div class="project-tech">
+                    <span class="tech-tag">Spring Boot</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">AWS</span>
+                    <span class="tech-tag">Docker</span>
+                    <span class="tech-tag">Hibernate</span>
+                </div>
+            </div> -->
+
+            <!-- Project 5 -->
+            <!-- <div class="project-card scroll-reveal">
+                <div class="project-badge">FULL-STACK</div>
+                <h3>Project 5</h3>
+                <div class="project-company">Edureka</div>
+                <div class="project-date">Nov 2023 - Mar 2024</div>
+                <ul class="project-description">
+                    <li>Developed React frontend with Spring Boot backend</li>
+                    <li>Implemented GitHub OAuth and JWT authentication</li>
+                    <li>Reduced login errors by 15% and validation issues by 70%</li>
+                    <li>Deployed to AWS with CI/CD, cutting deployment time by 60%</li>
+                </ul>
+                <div class="project-tech">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">Spring Boot</span>
+                    <span class="tech-tag">OAuth</span>
+                    <span class="tech-tag">JWT</span>
+                    <span class="tech-tag">AWS</span>
+                    <span class="tech-tag">CI/CD</span>
+                </div>
+            </div> -->
+        </div> 
+
+        <!-- Experience Section -->
+        <div class="experience-section scroll-reveal">
+            <h3>💼 EXPERIENCE</h3>
+            <div class="experience-list">
+                <!-- Experience 1 -->
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <h4>Software Engineer</h4>
+                            <div class="experience-company">Qualtrics</div>
+                        </div>
+                        <div class="experience-date">Sep 2025 - Dec 2025</div>
+                    </div>
+                    <div class="experience-location">Chicago, IL</div>
+                    <ul class="experience-description">
+                        <li>Implemented a Spring Security JWT authentication pipeline, enabling secure stateless access for 50+ active users and eliminating onboarding authentication failures</li>
+                        <li>Built an AI-powered semantic search service using vector embeddings and cosine similarity, improving prospect retrieval accuracy by 70%</li>
+                        <li>Containerized Spring Boot services with Docker and deployed to cloud infrastructure, improving deployment consistency and fault tolerance across environments</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span class="tech-tag">Spring Boot</span>
+                        <span class="tech-tag">Spring Security</span>
+                        <span class="tech-tag">JWT</span>
+                        <span class="tech-tag">AI/ML</span>
+                        <span class="tech-tag">Docker</span>
+                    </div>
+                </div>
+
+                <!-- Experience 2 -->
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <h4>IoT Research Assistant</h4>
+                            <div class="experience-company">Northeastern Illinois University</div>
+                        </div>
+                        <div class="experience-date">May 2025 - Sep 2025</div>
+                    </div>
+                    <div class="experience-location">Chicago, IL</div>
+                    <ul class="experience-description">
+                        <li>Developed Spring Boot REST APIs with MySQL to support real-time communication for 50+ IoT devices, reducing API failures by 40% through validation and transactional error handling</li>
+                        <li>Designed an asynchronous ingestion pipeline for IoT telemetry using Spring Async, Kafka, and RabbitMQ, improving ingestion throughput by 30% under peak device load</li>
+                        <li>Secured distributed services with role-based access control and token authentication, preventing unauthorized cross-service access during concurrent device communication</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span class="tech-tag">Spring Boot</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">Kafka</span>
+                        <span class="tech-tag">RabbitMQ</span>
+                        <span class="tech-tag">IoT</span>
+                    </div>
+                </div>
+
+                <!-- Experience 3 -->
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <h4>Security Research Assistant</h4>
+                            <div class="experience-company">Northeastern Illinois University</div>
+                        </div>
+                        <div class="experience-date">Dec 2024 - May 2025</div>
+                    </div>
+                    <div class="experience-location">Chicago, IL</div>
+                    <ul class="experience-description">
+                        <li>Automated SSL/TLS security scans for 500+ websites using Python and SSLyze, extracting certificate, cipher, and protocol configurations</li>
+                        <li>Analyzed HTTPS enforcement policies, encryption strengths, certificate issuers, and expiration timelines to identify misconfigurations</li>
+                        <li>Generated SQL-backed comparative reports that guided remediation, contributing to an 80% reduction in TLS-related vulnerabilities across reviewed government sites</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">SSLyze</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">Security</span>
+                    </div>
+                </div>
+
+                <!-- Experience 4 -->
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <h4>Software Engineer</h4>
+                            <div class="experience-company">Student Center for Science Engagement, NEIU</div>
+                        </div>
+                        <div class="experience-date">May 2024 - Aug 2024</div>
+                    </div>
+                    <div class="experience-location">Chicago, IL</div>
+                    <ul class="experience-description">
+                        <li>Enabled researchers to access 10,000+ scientific records via Spring Boot REST APIs, achieving 99% service uptime by deploying Dockerized services on AWS</li>
+                        <li>Programmed Python-based data pipelines to clean and normalize 10,000+ experimental records, reducing malformed records and improving SQL query reliability</li>
+                        <li>Modularized backend services using Hibernate ORM, enabling 3× horizontal scalability</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span class="tech-tag">Spring Boot</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">AWS</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">Hibernate</span>
+                    </div>
+                </div>
+
+                <!-- Experience 5 -->
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <h4>Software Engineer</h4>
+                            <div class="experience-company">Edureka</div>
+                        </div>
+                        <div class="experience-date">Nov 2023 - Mar 2024</div>
+                    </div>
+                    <div class="experience-location">Chicago, IL</div>
+                    <ul class="experience-description">
+                        <li>Developed a React frontend integrated with Spring Boot backend services, implementing GitHub OAuth and JWT based authentication</li>
+                        <li>Reduced login errors by 15% and validation issues by 70% through improved client-side checks and backend error handling</li>
+                        <li>Containerized applications with Docker and deployed to AWS (EC2, RDS) using CI/CD pipelines, reducing deployment time by 60% and environment setup time by 50%</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Spring Boot</span>
+                        <span class="tech-tag">OAuth</span>
+                        <span class="tech-tag">JWT</span>
+                        <span class="tech-tag">AWS</span>
+                        <span class="tech-tag">CI/CD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="section">
+        <h2 class="section-title scroll-reveal">ORIGIN STORY</h2>
+        <div class="origin-card scroll-reveal">
+            <div class="origin-badge">🎓 EDUCATION</div>
+            <h3 class="origin-school">Northeastern Illinois University</h3>
+            <div class="origin-location">Chicago, IL</div>
+            <div class="origin-degree">Bachelor's in Computer Science</div>
+            <div class="origin-gpa">GPA: 3.70/4.00</div>
+            <div class="origin-date">Graduating December 2025</div>
+            
+            <div class="leadership-section">
+                <h4>🏆 Leadership Roles</h4>
+                <div class="leadership-items">
+                    <div class="leadership-item">
+                        <span class="leadership-icon">💼</span>
+                        <span>Computer Science Society Treasurer</span>
+                    </div>
+                    <div class="leadership-item">
+                        <span class="leadership-icon">⚡</span>
+                        <span>Google Developer Group Technical Lead</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">WITH GREAT CODE COMES GREAT RESPONSIBILITY</p>
+        <p style="margin-top: 1rem; color: rgba(240, 240, 240, 0.6);">© 2025 Fawzaan Khan | Built with ❤️ and webbing</p>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+        // POW effect on project card click
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                const pow = document.createElement('div');
+                pow.className = 'pow-effect';
+                pow.textContent = ['POW!', 'BAM!', 'WHAM!', 'ZAP!'][Math.floor(Math.random() * 4)];
+                pow.style.left = e.clientX + 'px';
+                pow.style.top = e.clientY + 'px';
+                document.body.appendChild(pow);
+                setTimeout(() => pow.remove(), 800);
+            });
+        });
+
+        // Parallax effect for web strands
+        document.addEventListener('mousemove', (e) => {
+            const strands = document.querySelectorAll('.web-strand');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            strands.forEach((strand, index) => {
+                const speed = (index + 1) * 0.5;
+                const x = (mouseX - 0.5) * speed * 20;
+                const y = (mouseY - 0.5) * speed * 20;
+                strand.style.transform = `translate(${x}px, ${y}px) rotate(${x * 0.1}deg)`;
+            });
+        });
+
+        // Dynamic comic effects
+        setInterval(() => {
+            const effects = ['✨', '⚡', '💥', '🕸️'];
+            const effect = document.createElement('div');
+            effect.textContent = effects[Math.floor(Math.random() * effects.length)];
+            effect.style.position = 'fixed';
+            effect.style.left = Math.random() * 100 + '%';
+            effect.style.top = Math.random() * 100 + '%';
+            effect.style.fontSize = '2rem';
+            effect.style.pointerEvents = 'none';
+            effect.style.zIndex = '0';
+            effect.style.animation = 'fadeInUp 3s ease-out forwards';
+            document.body.appendChild(effect);
+            setTimeout(() => effect.remove(), 3000);
+        }, 3000);
+
+    </script>
+</body>
+</html>
